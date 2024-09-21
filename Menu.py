@@ -29,10 +29,12 @@ def showMenu():
         addEmploye(employe)
     elif(int(n)==2):
         print("*************************LISTE D'EMPLOYE**********************************");
+        listEmploye()
     elif(int(n)==3):
         print("*************************DETAIL D'EMPLOYE**********************************");
     elif(int(n)==4):
         print("*************************MODIFICATION D'EMPLOYE**********************************");
+        updateEmploye()
     elif(int(n)==5):
         print("*************************SUPPRESSION D'EMPLOYE**********************************");
    
