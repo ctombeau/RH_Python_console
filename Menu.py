@@ -3,6 +3,8 @@
 import os
 from AjoutEmploye import *
 from entities.Employe import *
+import hashlib
+from getpass import getpass
 
 def showMenu():
     print("1.Ajouter un employe")
@@ -14,7 +16,7 @@ def showMenu():
     while int(n) < 1 or int(n) > 5:
         n= input("Veuillez choisir le numero de votre choix: ")
         
-    print("La valeur choisie ",n);
+    print("La valeur choisie ",n)
     if(int(n)==1):
         print("\n*************************AJOUT D'EMPLOYE**********************************\n");
         print("Veuillez saisir les infos de l'employe ");
@@ -23,7 +25,8 @@ def showMenu():
         dateNaissance=input("Date de Naissance de l'employe: ")
         username=input("Nom d'utilisateur l'employe: ")
         email=input("Email de l'employe: ")
-        password=input("Mot de passe de l'employe: ")
+        password=getpass("Mot de passe de l'employe: ")
+        password = hashlib.sha1(password)
         phone= input("Numero de telephone: ")
         employe=Employe(nom,prenom,username,email,dateNaissance,phone,password)
         addEmploye(employe)
