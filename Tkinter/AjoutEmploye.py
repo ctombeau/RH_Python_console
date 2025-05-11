@@ -1,83 +1,104 @@
 from tkinter import *
 
-fenetre = Tk()
-champ_lebel = Label(fenetre, text="AJOUT D'UN EMPLOYE")
-champ_lebel.pack() 
+def createWindow():
+    fenetre = Tk()
+    fenetre.geometry("400x400")
+    fenetre.title("AJOUT D'UN EMPLOYE")
+    fenetre.grid() 
 
 
-nom = Label(fenetre, text="Nom")
-nom.pack()
+    nom = Label(fenetre, text="Nom")
+    nom.grid(row=0,column=0,pady=5)
+    
+    global inputNom
+    var_nom=StringVar()
+    inputNom = Entry(fenetre, width=30, textvariable=var_nom)
+    inputNom.grid(row=0,column=1,pady=5)
 
-inputNom = StringVar()
-inputNomSaisie = Entry(fenetre, textvariable=inputNom, width=30)
-inputNomSaisie.pack()
+    prenom = Label(fenetre, text="Prenom")
+    prenom.grid(row=1,column=0,pady=5)
+    
+    global inputPrenom
+    var_prenom=StringVar()
+    inputPrenom = Entry(fenetre, width=30, textvariable=var_prenom)
+    inputPrenom.grid(row=1,column=1,pady=5)
+
+    dateNaissance = Label(fenetre, text="Date de Naissance")
+    dateNaissance.grid(row=2,column=0,pady=5)
+
+    global inputDateNaissance
+    var_naissance=StringVar()
+    inputDateNaissance = Entry(fenetre,  width=30, textvariable=var_naissance)
+    inputDateNaissance.grid(row=2,column=1,pady=5)
+
+    sexeLablel = Label(fenetre, text="Sexe")
+    sexeLablel.grid(row=3,column=0,pady=5)
+    
+    global sexe
+    sexe = StringVar()
+    feminin = Radiobutton(fenetre, text="F", variable=sexe,value="F")
+    masculin = Radiobutton(fenetre, text="M", variable=sexe,value="M")
+    feminin.grid(row=3,column=1,pady=5)
+    masculin.grid(row=3,column=2,pady=5)
 
 
-prenom = Label(fenetre, text="Prenom")
-prenom.pack()
+    username = Label(fenetre, text="Nom utilisateur")
+    username.grid(row=4,column=0,pady=5)
+    
+    global inputUsername
+    var_username=StringVar()
+    inputUsername = Entry(fenetre, width=30, textvariable=var_username)
+    inputUsername.grid(row=4,column=1,pady=5)
 
-inputPrenom = StringVar()
-inputPrenomSaisie = Entry(fenetre, textvariable=inputPrenom, width=30)
-inputPrenomSaisie.pack()
+    email = Label(fenetre, text="Email")
+    email.grid(row=5,column=0,pady=5)
+    
+    global inputEmail
+    var_email=StringVar()
+    inputEmail = Entry(fenetre, width=30, textvariable=var_email)
+    inputEmail.grid(row=5,column=1,pady=5)
 
-dateNaissance = Label(fenetre, text="Date de Naissance")
-dateNaissance.pack()
+    password = Label(fenetre, text="Mot de passe")
+    password.grid(row=6,column=0,pady=5)
+    
+    global inputPassword
+    var_password=StringVar()
+    inputPassword = Entry(fenetre,  width=30, show="*",textvariable=var_password)
+    inputPassword.grid(row=6,column=1,pady=5)
 
-sexeLablel = Label(fenetre, text="Sexe")
-sexeLablel.pack()
+    password2 = Label(fenetre, text="Retapez Mot de Passe")
+    password2.grid(row=7,column=0,pady=5)
+    
+    global inputPassword2
+    var_password2=StringVar()
+    inputPassword2 = Entry(fenetre, width=30, show="*", textvariable=var_password2)
+    inputPassword2.grid(row=7,column=1,pady=5)
 
-sexe = StringVar()
-feminin = Radiobutton(fenetre, text="F", variable=sexe,value="F")
-masculin = Radiobutton(fenetre, text="M", variable=sexe,value="M")
-feminin.pack()
-masculin.pack()
-sexe.get()
+    phone = Label(fenetre, text="Telephone")
+    phone.grid(row=8,column=0,pady=5)
+    
+    global inputPhone
+    var_phone=StringVar()
+    inputPhone = Entry(fenetre,  width=30,textvariable=var_phone)
+    inputPhone.grid(row=8,column=1,pady=5)
 
-inputDateNaissance = StringVar()
-inputDateNaissanceSaisie = Entry(fenetre, textvariable=inputDateNaissance, width=30)
-inputDateNaissanceSaisie.pack()
+    envoyer = Button(fenetre, text="AJOUTER", command=saveData)
+    envoyer.grid(row=9,column=0,pady=5)
 
-username = Label(fenetre, text="Nom utilisateur")
-username.pack()
+    quitter = Button(fenetre, text="QUITTER",command = fenetre.quit)
+    quitter.grid(row=9,column=1,pady=5)
 
-inputUsername = StringVar()
-inputUsernameSaisie = Entry(fenetre, textvariable=inputUsername, width=30)
-inputUsernameSaisie.pack()
-
-email = Label(fenetre, text="Email")
-email.pack()
-
-inputEmail = StringVar()
-inputEmailSaisie = Entry(fenetre, textvariable=inputEmail, width=30)
-inputEmailSaisie.pack()
-
-password = Label(fenetre, text="Mot de passe")
-password.pack()
-
-inputPassword = StringVar()
-inputPasswordSaisie = Entry(fenetre, textvariable=inputPassword, width=30)
-inputPasswordSaisie.pack()
-
-password2 = Label(fenetre, text="Retapez Mot de Passe")
-password2.pack()
-
-inputPassword2 = StringVar()
-inputPassword2Saisie = Entry(fenetre, textvariable=inputPassword2, width=30)
-inputPassword2Saisie.pack()
-
-phone = Label(fenetre, text="Telephone")
-phone.pack()
-
-inputPhone = StringVar()
-inputPhoneSaisie = Entry(fenetre, textvariable=inputPhone, width=30)
-inputPhoneSaisie.pack()
-
-envoyer = Button(fenetre, text="AJOUTER")
-envoyer.pack()
-
-quitter = Button(fenetre, text="QUITTER",command = fenetre.quit)
-quitter.pack()
-
-fenetre.mainloop()
-cadre = Frame(fenetre, width=768, height=576, borderwidth=1)
-cadre.pack(fill=BOTH)
+    fenetre.mainloop()
+    cadre = Frame(fenetre, width=768, height=576, borderwidth=1)
+    cadre.grid(fill=BOTH)
+    
+def saveData():
+    nom=inputNom.get()
+    prenom=inputPrenom.get()
+    username=inputUsername.get()
+    email=inputEmail.get()
+    dateNaissance=inputDateNaissance.get()
+    password=inputPassword.get()
+    password2=inputPassword2.get()
+    phone=inputPhone.get()
+    print(nom + " "+prenom+ " " + " ne le "+ dateNaissance+ " a le numero "+phone+" et username: "+username+" email "+ email+ " password: "+password)
