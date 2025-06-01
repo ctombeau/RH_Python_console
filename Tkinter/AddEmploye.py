@@ -1,11 +1,14 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from tkinter import *
+from entities.Employe import *
+
 
 def createWindow():
     fenetre = Tk()
     fenetre.geometry("400x400")
     fenetre.title("AJOUT D'UN EMPLOYE")
-    fenetre.grid() 
-
 
     nom = Label(fenetre, text="Nom")
     nom.grid(row=0,column=0,pady=5)
@@ -87,10 +90,11 @@ def createWindow():
 
     quitter = Button(fenetre, text="QUITTER",command = fenetre.quit)
     quitter.grid(row=9,column=1,pady=5)
-
-    fenetre.mainloop()
+    
     cadre = Frame(fenetre, width=768, height=576, borderwidth=1)
     cadre.grid(fill=BOTH)
+    
+    fenetre.mainloop()
     
 def saveData():
     nom=inputNom.get()
@@ -101,4 +105,6 @@ def saveData():
     password=inputPassword.get()
     password2=inputPassword2.get()
     phone=inputPhone.get()
+    e = Employe(nom,prenom,username,email,dateNaissance,phone,password)
+    
     print(nom + " "+prenom+ " " + " ne le "+ dateNaissance+ " a le numero "+phone+" et username: "+username+" email "+ email+ " password: "+password)

@@ -8,15 +8,13 @@ conn = mysql.connector.connect(
     database="mabanque"  # Remplace par le nom de ta base de données
 )
 
-# Créer un curseur
-cur = conn.cursor()
 
-# Exécuter une requête
-cur.execute("SELECT * FROM client")
-
-# Afficher les résultats
-for row in cur.fetchall():
-    print(row)
-
-# Fermer la connexion
-conn.close()
+def showEmploye():
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM client")
+    for row in cur.fetchall():
+        print(row)
+    conn.close()
+    
+    
+def saveEmploye(Employe e):

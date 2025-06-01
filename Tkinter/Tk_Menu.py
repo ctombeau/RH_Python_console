@@ -1,9 +1,9 @@
 from tkinter import *
-from AjoutEmploye import createWindow 
+import AddEmploye
 
 def openAddUser():
     print("Ajout Employe")
-    createWindow()
+    AddEmploye.createWindow()
 
 fenetre = Tk()
 fenetre.geometry("400x400")
