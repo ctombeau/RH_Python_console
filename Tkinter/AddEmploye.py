@@ -3,7 +3,9 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from tkinter import *
 from entities.Employe import *
-
+import mysql.connector
+from tkinter import messagebox
+from datetime import datetime
 
 def createWindow():
     fenetre = Tk()
@@ -26,7 +28,7 @@ def createWindow():
     inputPrenom = Entry(fenetre, width=30, textvariable=var_prenom)
     inputPrenom.grid(row=1,column=1,pady=5)
 
-    dateNaissance = Label(fenetre, text="Date de Naissance")
+    dateNaissance = Label(fenetre, text="Date de Naissance (YYYY-MM-DD)")
     dateNaissance.grid(row=2,column=0,pady=5)
 
     global inputDateNaissance
@@ -37,10 +39,10 @@ def createWindow():
     sexeLablel = Label(fenetre, text="Sexe")
     sexeLablel.grid(row=3,column=0,pady=5)
     
-    global sexe
-    sexe = StringVar()
-    feminin = Radiobutton(fenetre, text="F", variable=sexe,value="F")
-    masculin = Radiobutton(fenetre, text="M", variable=sexe,value="M")
+    global inputSexe
+    inputSexe = StringVar()
+    feminin = Radiobutton(fenetre, text="F", variable=inputSexe,value="F")
+    masculin = Radiobutton(fenetre, text="M", variable=inputSexe,value="M")
     feminin.grid(row=3,column=1,pady=5)
     masculin.grid(row=3,column=2,pady=5)
 
@@ -91,7 +93,7 @@ def createWindow():
     quitter = Button(fenetre, text="QUITTER",command = fenetre.quit)
     quitter.grid(row=9,column=1,pady=5)
     
-    cadre = Frame(fenetre, width=768, height=576, borderwidth=1)
+    cadre = Frame(fenetre, width=800, height=576, borderwidth=1)
     cadre.grid(fill=BOTH)
     
     fenetre.mainloop()
@@ -101,10 +103,59 @@ def saveData():
     prenom=inputPrenom.get()
     username=inputUsername.get()
     email=inputEmail.get()
+    sexe=inputSexe.get()
     dateNaissance=inputDateNaissance.get()
     password=inputPassword.get()
     password2=inputPassword2.get()
     phone=inputPhone.get()
     e = Employe(nom,prenom,username,email,dateNaissance,phone,password)
     
-    print(nom + " "+prenom+ " " + " ne le "+ dateNaissance+ " a le numero "+phone+" et username: "+username+" email "+ email+ " password: "+password)
+    if nom == "" or prenom == "" or username == "" or email == "" or dateNaissance=="" or password == "" or password2 == "" or phone=="":
+        messagebox.showwarning("Input Error", "Tous les champs sont obligatoires.")
+        return
+    
+    try:
+        date_obj = datetime.strptime(dateNaissance, "%Y-%m-%d")
+    except ValueError:
+        messagebox.showwarning("Input Error", "Le format de la date de naissance est incorrect. Utilisez le format YYYY-MM-DD.")
+        return
+        
+    try:
+        # Connect to MySQL
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="Edma1995",
+            database="rh"
+        )
+        cursor = conn.cursor()
+
+        # Insert data
+        if password==password2:
+            query = "INSERT INTO employe (nom,prenom,username,email,sexe,date_naissance,password,phone) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor.execute(query, (nom,prenom,username,email,sexe,dateNaissance,password,phone))
+            conn.commit()
+
+            # Clear fields and show success
+            inputNom.delete(0, tk.END)
+            inputPrenom.delete(0, tk.END)
+            inputUsername.delete(0, tk.END)
+            inputEmail.delete(0, tk.END)
+            inputDateNaissance.delete(0, tk.END)
+            inputPassword.delete(0, tk.END)
+            inputPassword2.delete(0, tk.END)
+            inputPhone.delete(0, tk.END)
+
+            messagebox.showinfo("Success", "Données enregistrées avec succès!")
+        else:
+            messagebox.showwarning("Input Error", "Les passwords ne correspondent pas.")
+            return
+
+    except mysql.connector.Error as err:
+        messagebox.showerror("Database Error", f"Error: {err}")
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+    
+    #print(nom + " "+prenom+ " " + " ne le "+ dateNaissance+ " a le numero "+phone+" et username: "+username+" email "+ email+ " password: "+password)
