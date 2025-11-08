@@ -1,6 +1,6 @@
 #coding:utf-8
 
-import cgi
+#import cgi
 
 print("Content-type: text/html; charset=utf-8\n")
 
@@ -8,12 +8,20 @@ print("Content-type: text/html; charset=utf-8\n")
 
 html = """<!DOCTYPE html>
 <head>
-    <charset="utf-8">
+    <meta charset="utf-8">
     <title>Ma page Web</title>
 </head>
 <body>
-    <h1>Bonjour!</h1>
-    <p>Bla bla bla</p>
+    <h1>Page Web avec Python</h1>
+    
+    <form method="post" action="res.py">
+        <p>
+            <input type="text" name="username">
+            <input type="submit" value="Envoyer">
+        </p>
+    
+    </form>
+
 </body>
 </html>
 """

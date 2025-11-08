@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 import os
-from AjoutEmploye import *
+from EmployeService import *
 from entities.Employe import *
 import hashlib
 from getpass import getpass
@@ -26,7 +26,7 @@ def showMenu():
         username=input("Nom d'utilisateur l'employe: ")
         email=input("Email de l'employe: ")
         password=getpass("Mot de passe de l'employe: ")
-        password = hashlib.sha1(password)
+        password = hashlib.sha1(password.encode()).hexdigest()
         phone= input("Numero de telephone: ")
         employe=Employe(nom,prenom,username,email,dateNaissance,phone,password)
         addEmploye(employe)
@@ -35,11 +35,13 @@ def showMenu():
         listEmploye()
     elif(int(n)==3):
         print("*************************DETAIL D'EMPLOYE**********************************");
+        getEmploye()
     elif(int(n)==4):
         print("*************************MODIFICATION D'EMPLOYE**********************************");
         updateEmploye()
     elif(int(n)==5):
         print("*************************SUPPRESSION D'EMPLOYE**********************************");
+        deleteEmploye()
    
 print("Bienvenue a l'application Gestion des Employes\n")
 showMenu()
