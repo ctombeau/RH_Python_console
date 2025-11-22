@@ -50,13 +50,21 @@ def deleteEmploye():
         
 def getEmploye():
     n= input("Entrez le numero de l'Employe: ")
-    print("La valeur entree: ",n)
+    message=[]
     path="C://Python/Employe.txt"
     f=open(path,"r")
     lines=f.readlines()
     for line in lines:
         if int(line[0][0])==int(n):
-            print(line)
+            message[0]=line
+            #print(line)
+            #break;
+        else:
+            message.append("Aucun utilisateur avec ce numéro.")
+            #print("Aucun utilisateur avec ce numéro.");
+            #break;
+    print(message[0])
+    #return message[0]
     f.close()
     
 def numberOfLine():
